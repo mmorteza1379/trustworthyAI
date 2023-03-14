@@ -33,6 +33,7 @@ from castle.metrics import MetricsDAG
 from castle.common.consts import RL_VALID_PARAMS
 from castle.common.validator import check_args_value
 
+import matplotlib.pyplot as plt
 
 class RL(BaseLearner):
     """
@@ -414,6 +415,10 @@ class RL(BaseLearner):
             if i == 1 or i % 500 == 0:
                 logging.info('[iter {}] reward_batch: {:.4}, max_reward: {:.4}, max_reward_batch: {:.4}'.format(i,
                             reward_batch, max_reward, max_reward_batch))
+                plt.figure(1)
+                plt.plot(rewards_batches, label='reward per batch')
+                plt.plot(max_rewards, label='max reward')
+                plt.legend()
 
             # update lambda1, lamda2
             if i == 1 or i % lambda_iter_num == 0:
